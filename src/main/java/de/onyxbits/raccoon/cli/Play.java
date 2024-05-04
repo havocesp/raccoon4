@@ -15,6 +15,7 @@
  */
 package de.onyxbits.raccoon.cli;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -178,7 +179,7 @@ class Play implements Variables {
 		try {
 			BufferedReader bi = new BufferedReader(new FileReader(input));
 			String line = null;
-			while ((line = bi.readLine()) != null) {
+			while ((line = BoundedLineReader.readLine(bi, 5_000_000)) != null) {
 				if (line.trim().length() > 0 && !line.startsWith("#")) {
 					collect.add(line);
 				}
