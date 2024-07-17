@@ -15,6 +15,7 @@
  */
 package de.onyxbits.raccoon.net;
 
+import io.github.pixee.security.Newlines;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -142,7 +143,7 @@ class AppListHandler extends AbstractHandler {
 
 		if (components[2].equals(ain.getFileName())) {
 			File file = ain.resolve();
-			response.setHeader("Content-Length", new Long(file.length()).toString());
+			response.setHeader("Content-Length", Newlines.stripAll(new Long(file.length()).toString()));
 
 			response.setContentType("application/vnd.android.package-archive");
 			String s = MessageFormat.format(Messages.getString("destination"),
@@ -156,7 +157,7 @@ class AppListHandler extends AbstractHandler {
 
 		if (components[2].equals(main.getFileName())) {
 			File file = main.resolve();
-			response.setHeader("Content-Length", new Long(file.length()).toString());
+			response.setHeader("Content-Length", Newlines.stripAll(new Long(file.length()).toString()));
 
 			response.setContentType("application/octet-stream");
 			String s = MessageFormat.format(Messages.getString("destination"),
@@ -170,7 +171,7 @@ class AppListHandler extends AbstractHandler {
 
 		if (components[2].equals(patch.getFileName())) {
 			File file = main.resolve();
-			response.setHeader("Content-Length", new Long(file.length()).toString());
+			response.setHeader("Content-Length", Newlines.stripAll(new Long(file.length()).toString()));
 
 			response.setContentType("application/octet-stream");
 			String s = MessageFormat.format(Messages.getString("destination"),
