@@ -15,6 +15,7 @@
  */
 package de.onyxbits.raccoon.rss;
 
+import static io.github.pixee.security.XMLInputFactorySecurity.hardenFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -56,7 +57,7 @@ public class Parser {
 		InputStream in = null;
 		try {
 			in = url.openStream();
-			XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+			XMLInputFactory inputFactory = hardenFactory(XMLInputFactory.newInstance());
 			inputFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE);
 			XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
 
