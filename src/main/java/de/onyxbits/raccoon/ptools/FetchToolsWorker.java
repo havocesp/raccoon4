@@ -25,6 +25,7 @@ import de.onyxbits.raccoon.repo.Layout;
 import de.onyxbits.raccoon.transfer.TransferPeerBuilder;
 import de.onyxbits.raccoon.transfer.TransferWorker;
 import de.onyxbits.weave.Globals;
+import java.nio.file.Files;
 
 /**
  * A worker for fetching a file from an URL.
@@ -101,8 +102,8 @@ public class FetchToolsWorker implements TransferWorker {
 
 	@Override
 	public void onPrepare() throws Exception {
-		toolFile = File.createTempFile("adb", "zip");
-		usbFile = File.createTempFile("usbdriver", "zip");
+		toolFile = Files.createTempFile("adb", "zip").toFile();
+		usbFile = Files.createTempFile("usbdriver", "zip").toFile();
 		toolFile.deleteOnExit();
 		usbFile.deleteOnExit();
 	}
