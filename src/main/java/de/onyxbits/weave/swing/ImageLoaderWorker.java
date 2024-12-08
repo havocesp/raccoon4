@@ -15,6 +15,8 @@
  */
 package de.onyxbits.weave.swing;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.net.URL;
@@ -60,7 +62,7 @@ class ImageLoaderWorker extends SwingWorker<Object, ImageLoaderItem> {
 					res.image = cache.get(item.source);
 				}
 				else {
-					res.image = ImageIO.read(new URL(item.source));
+					res.image = ImageIO.read(Urls.create(item.source, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS));
 				}
 				publish(res);
 			}
