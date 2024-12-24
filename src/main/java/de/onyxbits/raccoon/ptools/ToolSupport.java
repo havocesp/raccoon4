@@ -15,6 +15,7 @@
  */
 package de.onyxbits.raccoon.ptools;
 
+import io.github.pixee.security.SystemCommand;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -93,12 +94,12 @@ class ToolSupport {
 			Runtime rt = Runtime.getRuntime();
 			if (isWindows()) {
 				File inf = new File(new File(binDir, USB), "android_winusb.inf");
-				rt.exec("pnputil -i -a " + inf.getAbsolutePath()).waitFor();
+				SystemCommand.runCommand(rt, "pnputil -i -a " + inf.getAbsolutePath()).waitFor();
 			}
 			else {
-				rt.exec("chmod +x " + adb.getAbsolutePath()).waitFor();
-				rt.exec("chmod +x " + sqlite.getAbsolutePath()).waitFor();
-				rt.exec("chmod +x " + fastboot.getAbsolutePath()).waitFor();
+				SystemCommand.runCommand(rt, "chmod +x " + adb.getAbsolutePath()).waitFor();
+				SystemCommand.runCommand(rt, "chmod +x " + sqlite.getAbsolutePath()).waitFor();
+				SystemCommand.runCommand(rt, "chmod +x " + fastboot.getAbsolutePath()).waitFor();
 			}
 		}
 		catch (InterruptedException e) {
