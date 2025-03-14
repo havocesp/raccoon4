@@ -15,6 +15,8 @@
  */
 package de.onyxbits.raccoon.ptools;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -75,13 +77,13 @@ public class FetchToolsWorker implements TransferWorker {
 			output = null;
 		}
 		if (bytesReceived == 0) {
-			input = new URL(getToolsUrl()).openStream();
+			input = Urls.create(getToolsUrl(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS).openStream();
 			output = new FileOutputStream(toolFile);
 			return input;
 		}
 		if (needsDriver) {
 			needsDriver = false;
-			input = new URL(getDriverUrl()).openStream();
+			input = Urls.create(getDriverUrl(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS).openStream();
 			output = new FileOutputStream(usbFile);
 			return input;
 		}
