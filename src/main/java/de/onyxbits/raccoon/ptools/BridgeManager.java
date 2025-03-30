@@ -15,6 +15,7 @@
  */
 package de.onyxbits.raccoon.ptools;
 
+import io.github.pixee.security.SystemCommand;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -105,7 +106,7 @@ public class BridgeManager {
 		Runtime rt = Runtime.getRuntime();
 		if (ts.adb.exists()) {
 			// Try the private installation first
-			rt.exec(ts.adb.getAbsolutePath() + " start-server").waitFor();
+			SystemCommand.runCommand(rt, ts.adb.getAbsolutePath() + " start-server").waitFor();
 		}
 		else {
 			// Let's hope ADB is in the PATH.
