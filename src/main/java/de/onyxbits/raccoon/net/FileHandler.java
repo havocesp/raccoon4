@@ -15,6 +15,7 @@
  */
 package de.onyxbits.raccoon.net;
 
+import io.github.pixee.security.Newlines;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -106,9 +107,9 @@ class FileHandler extends AbstractHandler {
 		if (file != null) {
 			// File transfer
 			String type = fileNameMap.getContentTypeFor(file.toURI().toString());
-			response.setHeader("Content-Length", new Long(file.length()).toString());
-			response.setHeader("Content-Disposition", "attachment; filename=\""
-					+ file.getName() + "\"");
+			response.setHeader("Content-Length", Newlines.stripAll(new Long(file.length()).toString()));
+			response.setHeader("Content-Disposition", Newlines.stripAll("attachment; filename=\""
+					+ file.getName() + "\""));
 
 			response.setContentType(type);
 			String s = MessageFormat.format(Messages.getString("destination"),
